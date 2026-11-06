@@ -124,9 +124,9 @@ For TSER, the `final` directory also contains a script for performing the multiv
 
 The scripts for running the Chronos-Bolt experiments are located in the `bolt` directory.
 
-#### Classification and Similarity
 
-To perform hyperparameter optimization (HPO) for classification and similarity, run:
+
+To perform hyperparameter optimization for classification and similarity, run:
 
 ```bash
 python3 BERTi/src/finetuning/bolt/bolt_classification.py <index>
@@ -135,11 +135,8 @@ python3 BERTi/src/finetuning/bolt/bolt_similarity.py <index>
 
 This runs the full HPO procedure for the dataset corresponding to the specified index.
 
-### TSER
-
 For TSER, there are two options. Since some datasets are large, it is also possible to run a single configuration instead of performing the full HPO procedure.
 
-**Run a single configuration:**
 
 ```bash
 python3 BERTi/src/finetuning/bolt_tser.py \
@@ -151,7 +148,7 @@ python3 BERTi/src/finetuning/multi_bolt_tser.py \
     "<TRIAL_INDEX>"
 ```
 
-**Perform the full HPO procedure:**
+To run full hpo or after running each config run the final training do:
 
 ```bash
 python3 BERTi/src/finetuning/bolt/bolt_tser.py <index>
