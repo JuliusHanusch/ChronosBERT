@@ -22,7 +22,7 @@ from chronos_pkg.src.chronos import ChronosPipeline
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-DB_PATH = "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/src/finetuning/similarity/final/similarity_cv_best.db"
+DB_PATH = "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/src/finetuning/similarity/final/similarity_default.db"
 
 
 def load_pairs(path):
@@ -139,7 +139,7 @@ if __name__=="__main__":
     train_inner = config["TrainInnerModel"]
 
     pipeline=ChronosPipeline.from_pretrained(
-        "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/BertModel/BertSmall/run-2/checkpoint-final",
+        "ddrg/ChronosBERT-Default",
         task="similarity",
         TrainInnerModel=train_inner,
     )

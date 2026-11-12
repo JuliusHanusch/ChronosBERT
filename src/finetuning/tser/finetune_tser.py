@@ -141,7 +141,7 @@ if __name__ == "__main__":
 
     # Load TSER model
     pipeline = ChronosPipeline.from_pretrained(
-        "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/BertModel/BertSmall/run-2/checkpoint-final",
+        "ddrg/ChronosBERT-Default",
         task="tser",
         loss_type=loss_type,
         dropout_head=dropout_head,

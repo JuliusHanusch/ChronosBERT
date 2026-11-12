@@ -24,7 +24,7 @@ from chronos_pkg.src.chronos import ChronosPipeline
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
-DB_PATH = "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/src/finetuning/tser/Final/tser_bestConfigs_time.db"
+DB_PATH = "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/src/finetuning/tser/final/tser_RMSE.db"
 
 
 def set_seed(seed):
@@ -142,7 +142,7 @@ if __name__ == "__main__":
 
     # Load TSER model
     pipeline = ChronosPipeline.from_pretrained(
-        "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/BertModel/BertSmall/run-2/checkpoint-final",
+        "ddrg/ChronosBERT-Default",
         task="tser",
         loss_type=loss_type,
         dropout_head=dropout_head,

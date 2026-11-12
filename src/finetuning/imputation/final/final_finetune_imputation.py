@@ -296,8 +296,7 @@ if __name__ == "__main__":
     mean_span_length = config["mean_span_length"]
 
     pipeline = ChronosPipeline.from_pretrained(
-        "/data/horse/ws/juha972b-AION-BERT-Chronos/"
-        "BERTi/BertModel/BertSmall/run-2/checkpoint-final",
+        "ddrg/ChronosBERT-Default",
         task="mlm",
     )
 

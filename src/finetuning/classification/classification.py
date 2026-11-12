@@ -25,9 +25,11 @@ from chronos_pkg.src.chronos import ChronosPipeline
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
+#adapt db path
 DB_PATH = "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/src/finetuning/classification/classification_cv_new.db"
 SEED = 42
 
+#custom cv splits due to small datasets
 def create_cv_splits(y, n_splits=5, seed=42):
     y = np.asarray(y)
     rng = np.random.RandomState(seed)
@@ -59,6 +61,7 @@ def get_db_connection():
     conn.execute("PRAGMA busy_timeout=60000")
     return conn
 
+#rerun db on fail
 def execute_db_update(sql, params, description="database update"):
     for attempt in range(5):
 
@@ -235,7 +238,7 @@ if __name__ == "__main__":
 
     #Select Model
     pipeline = ChronosPipeline.from_pretrained(
-        "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/BertModel/BertSmall/run-2/checkpoint-final",
+        "ddrg/ChronosBERT-Default",
         task="classification",
         num_labels=num_labels,
         dropout_head=dropout_head,
@@ -265,7 +268,7 @@ if __name__ == "__main__":
         set_seed(SEED + fold)
 
         pipeline = ChronosPipeline.from_pretrained(
-            "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/BertModel/BertSmall/run-2/checkpoint-final",
+            "juliushanusch/ChronosBERT-Default",
             task="classification",
             num_labels=num_labels,
             dropout_head=dropout_head,

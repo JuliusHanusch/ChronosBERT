@@ -318,12 +318,6 @@ if __name__ == "__main__":
     start_id = (batch_index - 1) * CONFIGS_PER_INDEX + 1
     end_id = batch_index * CONFIGS_PER_INDEX
 
-    print("=" * 80)
-    print(
-        f"Running index {batch_index}: "
-        f"configs {start_id}-{end_id}"
-    )
-    print("=" * 80)
 
     set_seed(SEED)
 
@@ -407,15 +401,7 @@ if __name__ == "__main__":
             total_values_x1 += a.size
             total_values_x2 += b.size
 
-        print(
-            f"X1 NaNs: {total_nan_x1:,} / {total_values_x1:,} "
-            f"({100 * total_nan_x1 / total_values_x1:.2f}%)"
-        )
 
-        print(
-            f"X2 NaNs: {total_nan_x2:,} / {total_values_x2:,} "
-            f"({100 * total_nan_x2 / total_values_x2:.2f}%)"
-        )
 
         invalid_pairs = []
 
@@ -426,9 +412,6 @@ if __name__ == "__main__":
             if np.isnan(a).all() or np.isnan(b).all():
                 invalid_pairs.append(i)
 
-        print(f"Pairs with completely missing sequence: {len(invalid_pairs)}")
-        print(f"Total pairs: {len(X1)}")
-        print(f"Percentage: {100 * len(invalid_pairs) / len(X1):.2f}%")
 
         cv_results = []
 
@@ -456,8 +439,7 @@ if __name__ == "__main__":
 
 
             pipeline = ChronosPipeline.from_pretrained(
-                "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/"
-                "BertModel/BertSmall/run-2/checkpoint-final",
+                "ddrg/ChronosBERT-Default",
                 task="similarity",
                 TrainInnerModel=train_inner,
             )
@@ -475,23 +457,6 @@ if __name__ == "__main__":
             i2, m2, _ = tokenizer.context_input_transform(
                 torch.from_numpy(b).unsqueeze(0)
             )
-
-            print("X1:")
-            print("  raw NaN:", np.isnan(a).sum())
-            print("  token IDs finite:", torch.isfinite(i1).all().item())
-            print("  token IDs min:", i1.min().item())
-            print("  token IDs max:", i1.max().item())
-
-            print("X2:")
-            print("  raw NaN:", np.isnan(b).sum())
-            print("  token IDs finite:", torch.isfinite(i2).all().item())
-            print("  token IDs min:", i2.min().item())
-            print("  token IDs max:", i2.max().item())
-
-            print("X1 attention mask:", m1)
-            print("X2 attention mask:", m2)
-            print("X1 mask sum:", m1.sum().item())
-            print("X2 mask sum:", m2.sum().item())
 
 
             dataset = SimilarityDataset(

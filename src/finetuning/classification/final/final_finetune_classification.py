@@ -154,8 +154,7 @@ if __name__ == "__main__":
 
     #Select Model
     pipeline = ChronosPipeline.from_pretrained(
-        "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/BertModel/BertSmall/run-2/checkpoint-final",
-        #"/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/BertModel/BertBase200k/run-2/checkpoint-final",
+        "ddrg/ChronosBERT-Default",
         task="classification",
         num_labels=num_labels,
         dropout_head=dropout_head,
