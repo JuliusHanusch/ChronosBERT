@@ -27,7 +27,6 @@ mask_token_id: 3
 use_eos_token: true
 
 context_length: 512
-prediction_length: 64
 min_past: 60
 
 max_steps: 200000
