@@ -1,0 +1,76 @@
+training_data_paths: 
+  - "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/data/train/kernelsynth.arrow"
+  - "/data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/data/train/training_mix.arrow"
+
+probability:
+ - 0.1
+ - 0.9
+
+gradient_accumulation_steps: 8
+max_steps: 200000 
+save_steps: 10000
+log_steps: 1000 
+num_samples: 20
+shuffle_buffer_length: 100000
+
+model_id: "prajjwal1/bert-small"
+model_type: "mlm"
+task: "mlm"
+
+fp16: true
+random_init: true
+tf32: true
+torch_compile: true 
+dataloader_num_workers: 0
+use_eos_token: true
+
+prediction_length: 1 
+n_special_tokens: 4
+pad_token_id: 0
+bos_token_id: 1
+eos_token_id: 2
+mask_token_id: 3
+
+bolt: true
+context_length: 1024
+
+hidden_act: "gelu"
+hidden_dropout_prob: 0.1
+attention_probs_dropout_prob: 0.1
+layer_norm_eps: 1.0e-12 
+
+use_reg_token: false
+span_masking: false 
+
+n_tokens: 4096
+tokenizer_limit: 15
+tokenizer_class: "MeanScaleUniformBins"
+
+batch_size: 32
+learning_rate: 1.0e-4
+warmup_ratio: 0.1 
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-6
+weight_decay: 0.01
+max_grad_norm: 0.0
+warmup_steps: 24_000 
+optim: "adamw_torch_fused"
+max_missing_prop: 0.9
+drop_prob: 0.2 # TODO
+lr_scheduler_type: "linear"
+min_past: 64
+output_dir: /data/horse/ws/juha972b-AION-BERT-Chronos/BERTi/BertModel/Bolt/BertBoltBase10
+
+
+mean_span_length: 1 
+masking_prob: 0.15
+
+patch_size: 16
+patch_stride: 16
+individual_dropout: 0.05
+unchanged_patch_prob: 0.10
+patch_masking_prob: 0.80
+patch_perturbation_prob: 0.1 
+patch_perturbation_scale_strength: 0.1
+patch_perturbation_noise_strength: 0.1
