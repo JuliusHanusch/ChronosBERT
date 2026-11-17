@@ -174,9 +174,9 @@ For TSER, the `final` directory also contains scripts for the multivariate exper
 ## Finetuning ChronosBERT-Bolt
 
 
-## Classificaiton and Similarity
+## Classification and imilarity
 
-To perform HPO and testing for classification, similarity or tser, execute:
+To perform HPO and testing for classification, or, execute:
 
 ```bash
 python3 src/finetuning/bolt/bolt_<TASK>.py <DATASET_INDEX>
