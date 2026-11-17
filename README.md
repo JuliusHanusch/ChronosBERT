@@ -174,7 +174,7 @@ For TSER, the `final` directory also contains scripts for the multivariate exper
 ## Finetuning ChronosBERT-Bolt
 
 
-## Classification and imilarity
+## Classification and Similarity
 
 To perform HPO and testing for classification, or, execute:
 
