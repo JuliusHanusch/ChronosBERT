@@ -158,7 +158,7 @@ python3 src/finetuning/classification/classification.py --index <INDEX>
 
 The same procedure applies to similarity using its script.
 
-### Final Trainign and Testing
+### Final Training and Testing
 
 After completing HPO, initialize the final evaluation database. This selects the best configuration for each dataset.
 
@@ -173,31 +173,26 @@ For TSER, the `final` directory also contains scripts for the multivariate exper
 
 ## Finetuning ChronosBERT-Bolt
 
-### Classification
 
-To perform HPO and evaluation for classification, execute:
+## Classificaiton and Similarity
 
-```bash
-python3 src/finetuning/bolt/bolt_classification.py <DATASET_INDEX>
-```
-
-The supplied dataset index determines which dataset is processed. The script performs the HPO procedure and evaluates the selected configurations for the corresponding dataset.
-
-### Similarity
-
-To perform HPO and evaluation for similarity, execute:
+To perform HPO and testing for classification, similarity or tser, execute:
 
 ```bash
-python3 src/finetuning/bolt/bolt_similarity.py <DATASET_INDEX>
+python3 src/finetuning/bolt/bolt_<TASK>.py <DATASET_INDEX>
 ```
 
-The dataset index determines which dataset is processed.
+`<TASK>` can  `classification`, or `similarity`.
+
+
+The supplied dataset index determines which dataset is processed. The script performs the HPO procedure and tests the best configurations for the corresponding dataset.
+
 
 ### TSER
 
 Two execution modes are supported for TSER.
 
-The first option executes a single trial for a specified dataset. This is useful for larger datasets, as individual trials can be distributed across multiple jobs.
+The first option executes a single trial for a specified dataset which can be used for large datasets.
 
 **Univariate TSER:**
 
