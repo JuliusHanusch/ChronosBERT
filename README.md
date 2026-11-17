@@ -26,32 +26,29 @@ The setup script creates the GPU environment and installs the dependencies requi
 
 Different environments are required for MOMENT and InceptionTime due to dependency conflicts. The corresponding requirements files are provided in the `requirements` directory.
 
-**Note:** The setup scripts and Python scripts contain paths to scripts, datasets, checkpoints, and databases that may need to be adapted to the local environment. In particular, check the configured project root directory before executing the scripts.
+**Note:** The setup scripts and Python scripts contain paths to scripts, datasets, checkpoints, and databases that may need to be adapted.
 
-The experiments were developed using Python 3.12 and CUDA 12.6.
+The experiments were conducted using Python 3.12.3 and CUDA cuda_12.6
 
-## Pretraining
+The implementation is based on the original [Chronos repository](https://github.com/amazon-science/chronos-forecasting).
 
-The pretraining implementation is based on the original [Chronos repository](https://github.com/amazon-science/chronos-forecasting).
+The following files are modified:
 
-To pretrain the two models, clone the Chronos repository and replace the corresponding training and model files with the modified versions provided in this repository. The modifications extend the original implementation to support masked language modeling with BERT-style encoder models.
-
-The following files need to be replaced:
-
-- `train.py`
 - `chronos.py`
 - `chronos_bolt.py`
 
-**Note:** The modified files are located in `src` and `chronos_pkg/chronos/src`.
+**Note:** The modified files are located in `chronos_pkg/chronos/src`.
+
 
 ## Pretraining
+
+To reproduce the pretraining perfrom the follwing steps:
 
 Download the pretraining data using:
 
 ```bash
 python3 data/get_train_data.py
 ```
-
 
 The pretraining configurations for both models are located in `BertModel/configs/`.
 
