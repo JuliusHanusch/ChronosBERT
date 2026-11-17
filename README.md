@@ -160,16 +160,20 @@ The same procedure applies to similarity using its script.
 
 ### Final Training and Testing
 
-After completing HPO, initialize the final evaluation database. This selects the best configuration for each dataset.
+After completing HPO, initialize the final database used for testing. This selects the best configuration for each dataset.
 
-To retrain and evaluate the model using the full training data, execute:
 
 ```bash
 python3 src/finetuning/<TASK>/final/final_db_<TASK>.py
+```
+
+To retrain and test the model using the full training data, execute:
+
+```bash
 python3 src/finetuning/<TASK>/final/final_worker_<TASK>.py <INDEX>
 ```
 
-For TSER, the `final` directory also contains scripts for the multivariate experiments. The workers can be adapted to use run the multivariate versions.
+For TSER, separate scripts are provided for multivariate experiments. The worker can be adapted to run the multivariate experiments.
 
 ## Finetuning ChronosBERT-Bolt
 
@@ -192,29 +196,15 @@ The supplied dataset index determines which dataset is processed. The script per
 
 Two execution modes are supported for TSER.
 
-The first option executes a single trial for a specified dataset which can be used for large datasets.
+The first mode executes a single trial for a specified dataset and is intended for larger datasets. The second mode executes the complete HPO procedure for a dataset. To use this mode, omit the `TRIAL_INDEX` argument.
 
-**Univariate TSER:**
+**Univariate TSER – Single Trial:**
 
 ```bash
 python3 src/finetuning/bolt/bolt_tser.py <DATASET_INDEX> <TRIAL_INDEX>
 ```
 
-**Multivariate TSER:**
-
-```bash
-python3 src/finetuning/bolt/multi_bolt_tser.py <DATASET_INDEX> <TRIAL_INDEX>
-```
-
-The second option executes the complete HPO procedure for a dataset. To use this mode, omit the `TRIAL_INDEX` argument:
-
-**Univariate TSER:**
-
-```bash
-python3 src/finetuning/bolt/bolt_tser.py <DATASET_INDEX>
-```
-
-**Multivariate TSER:**
+**Multivariate TSER – Complete HPO:**
 
 ```bash
 python3 src/finetuning/bolt/multi_bolt_tser.py <DATASET_INDEX>
