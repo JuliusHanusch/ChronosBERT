@@ -133,45 +133,43 @@ python3 data/finetuning/UCR_extracted/UCR_classification_data.py
 
 The following sections describe how to perform HPO and final evaluation for ChronosBERT.
 
+### Hyperparameter Optimization
+
 For the desired task, initialize the configuration database and insert the configurations using:
 
 ```bash
-python3 src/finetuning/<task>/db_<task>.py
-python3 src/finetuning/<task>/configs_<task>.py
+python3 src/finetuning/<TASK>/db_<TASK>.py
+python3 src/finetuning/<TASK>/configs_<TASK>.py
 ```
 
-<task> can be imputation, classification, tser, similarity
+`<TASK>` can be `imputation`, `classification`, `tser`, or `similarity`.
 
-
-For TSER and imputation, worker scripts execute the training and evaluation procedures for individual configurations. The supplied index determines which configuration from the corresponding database is executed.
-
+For TSER and imputation, worker scripts execute the training and evaluation procedures. The index determines which configuration from the database is executed.
 
 ```bash
-python3 src/finetuning/tser/worker_tser.py <INDEX>
+python3 src/finetuning/<TASK>/worker_<TASK>.py <INDEX>
 ```
-The same scrip applies to imputation using its corresponding script.
 
-For classification and similarity, training and evaluation are combined in the respective scripts. For example, classification can be executed using:
+For classification and similarity, training and evaluation are combined in the scripts. For example, classification can be executed using:
 
 ```bash
 python3 src/finetuning/classification/classification.py --index <INDEX>
 ```
 
-The same procedure applies to similarity using its corresponding script.
+The same procedure applies to similarity using its script.
 
-### Final Evaluation
+### Final Trainign and Testing
 
-After completing HPO, inititalize the final db which selects the best configuration for each dataset and retrain the model using the full training data.
+After completing HPO, initialize the final evaluation database. This selects the best configuration for each dataset.
 
-For <task>, initialize the final evaluation database and execute the corresponding worker:
+To retrain and evaluate the model using the full training data, execute:
 
 ```bash
-python3 src/finetuning/<task>/final/final_db_<task>.py
-python3 src/finetuning/<task>/final/final_worker_<task>.py <INDEX>
+python3 src/finetuning/<TASK>/final/final_db_<TASK>.py
+python3 src/finetuning/<TASK>/final/final_worker_<TASK>.py <INDEX>
 ```
 
-For TSER, there are also scripts for the multivariate experiments.
-
+For TSER, the `final` directory also contains scripts for the multivariate experiments. The workers can be adapted to use run the multivariate versions.
 
 ## Finetuning ChronosBERT-Bolt
 
@@ -197,9 +195,9 @@ The dataset index determines which dataset is processed.
 
 ### TSER
 
-For TSER, two execution modes are supported.
+Two execution modes are supported for TSER.
 
-The first option executes a single configuration for a specified dataset and trial. This is useful for distributing individual trials across multiple jobs, particularly for larger datasets.
+The first option executes a single trial for a specified dataset. This is useful for larger datasets, as individual trials can be distributed across multiple jobs.
 
 **Univariate TSER:**
 
@@ -213,4 +211,16 @@ python3 src/finetuning/bolt/bolt_tser.py <DATASET_INDEX> <TRIAL_INDEX>
 python3 src/finetuning/bolt/multi_bolt_tser.py <DATASET_INDEX> <TRIAL_INDEX>
 ```
 
-The second option is to execute the complete HPO procedure for a dataset.
+The second option executes the complete HPO procedure for a dataset. To use this mode, omit the `TRIAL_INDEX` argument:
+
+**Univariate TSER:**
+
+```bash
+python3 src/finetuning/bolt/bolt_tser.py <DATASET_INDEX>
+```
+
+**Multivariate TSER:**
+
+```bash
+python3 src/finetuning/bolt/multi_bolt_tser.py <DATASET_INDEX>
+```
